@@ -81,7 +81,7 @@ layui.use(['layer','util'], function(){
                     "url": "../../js/plugin/datatables/Chinese.lang"
                 },
             	"ajax": {
-            		"url" : domainName + "/api-b/blackIPs",
+            		"url" : domainName + "/managerApi/blackIPs",
             		"type":"get",
             		"data":function(d){
         				d.ip = $('#ip').val();
@@ -144,7 +144,7 @@ function del(id){
     }, function() {
         $.ajax({
             type : 'delete',
-            url : domainName + "/api-b/blackIPs?ip="+id,
+            url : domainName + "/managerApi/blackIPs?ip="+id,
             success : function(data) {
                 example.ajax.reload();
                 layer.msg("删除成功");

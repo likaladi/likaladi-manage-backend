@@ -78,7 +78,7 @@ layui.use('layer', function(){
 function initMenuList(){
 	$.ajax({
 		type : 'get',
-		url : domainName + '/api-b/menus/all',
+		url : domainName + '/managerApi/menus/all',
 		contentType: "application/json; charset=utf-8",  
 		async:false,
 		success : function(data) {
@@ -123,7 +123,7 @@ function del(id){
     }, function() {
         $.ajax({
             type : 'delete',
-            url : domainName + '/api-b/menus/' + id,
+            url : domainName + '/managerApi/menus/' + id,
             success : function(data) {
                 location.reload();
             }

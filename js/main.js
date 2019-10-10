@@ -1,40 +1,49 @@
 initMenu();
 function initMenu(){
 	 $.ajax({
-	     url: domainName + "/api-b/menus/me",
+	     url: domainName + "/managerApi/menus/me",
 	     type:"get",
+		 beforeSend: function(request) {
+			 request.setRequestHeader("X-Auth-Token", localStorage.getItem("access_token"));
+		 },
 	     async:false,
 	     success:function(data){
-	    	 if(!$.isArray(data)){
-	    		 location.href = loginPage;
-	    		 return;
-	    	 }
-	    	 var menu = $("#menu");
-	    	 $.each(data, function(i,item){
-	             var a = $("<a href='javascript:;'></a>");
+	     	if(data.code == 200){
+				if(!$.isArray(data.data)){
+					location.href = loginPage;
+					localStorage.removeItem("access_token");
+					return;
+				}
+				var menu = $("#menu");
+				$.each(data.data, function(i,item){
+					var a = $("<a href='javascript:;'></a>");
 
-	             var css = item.css;
-	             if(css!=null && css!=""){
-	            	 a.append("<i aria-hidden='true' class='fa " + css +"'></i>");
-	             }
-	             a.append("<cite>"+item.name+"</cite>");
-	             a.attr("lay-id", item.id);
+					var css = item.css;
+					if(css!=null && css!=""){
+						a.append("<i aria-hidden='true' class='fa " + css +"'></i>");
+					}
+					a.append("<cite>"+item.name+"</cite>");
+					a.attr("lay-id", item.id);
 
-	             var url = item.url;
-	             if(url != null && url != ''){
-	            	 a.attr("data-url", url);
-	             }
+					var url = item.url;
+					if(url != null && url != ''){
+						a.attr("data-url", url);
+					}
 
-	             var li = $("<li class='layui-nav-item'></li>");
-	             if (i == 0) {
-	            	 li.addClass("layui-nav-itemed");
-	             }
-	             li.append(a);
-                 menu.append(li);
+					var li = $("<li class='layui-nav-item'></li>");
+					if (i == 0) {
+						li.addClass("layui-nav-itemed");
+					}
+					li.append(a);
+					menu.append(li);
 
-                 //多级菜单
-                 setChild(li, item.child)
-	        });
+					//多级菜单
+					setChild(li, item.child)
+				});
+			}else{
+				location.href = loginPage;
+				localStorage.removeItem("access_token");
+			}
 	     }
 	 });
 }
@@ -72,7 +81,7 @@ showLoginInfo();
 function showLoginInfo(){
 	$.ajax({
 		type : 'get',
-		url : domainName + '/api-u/users/current',
+		url : domainName + '/userApi/users/current',
 		async : false,
 		success : function(data) {
 			$(".admin-header-user span").text(data.nickname);

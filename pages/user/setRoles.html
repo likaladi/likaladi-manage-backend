@@ -28,7 +28,7 @@
 		//显示所有角色
     	$.ajax({
 			type : 'get',
-			url : domainName + '/api-u/roles',
+			url : domainName + '/userApi/roles',
 			async : false,
 			success : function(data) {
 				var ckb = $("#ckb");
@@ -48,7 +48,7 @@
     	var userId = getUrlParam("userId");
     	$.ajax({
 			type : 'get',
-			url : domainName + '/api-u/users/' + userId + '/roles',
+			url : domainName + '/userApi/users/' + userId + '/roles',
 			async : false,
 			success : function(data) {
 				if(data != null && data.length > 0){
@@ -75,7 +75,7 @@
 
 		$.ajax({
 			type : 'post',
-			url : domainName + '/api-u/users/' +userId +'/roles',
+			url : domainName + '/userApi/users/' +userId +'/roles',
 			contentType: "application/json; charset=utf-8",  
 			data : JSON.stringify(roleIds),
 			success : function(data) {

@@ -21,7 +21,7 @@
 	function initData(){
 		$.ajax({
 			type : 'get',
-			url : domainName + '/api-u/users/current',
+			url : domainName + '/userApi/users/current',
 			async : false,
 			success : function(data) {
 				var url = data.headImgUrl;
@@ -45,7 +45,7 @@
 	    	var formdata = {headImgUrl:url};
 			  $.ajax({
 					type : 'put',
-					url : domainName + '/api-u/users/me',
+					url : domainName + '/userApi/users/me',
 					contentType: "application/json; charset=utf-8",  
 					data : JSON.stringify(formdata),
 					success : function(data) {

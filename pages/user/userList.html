@@ -98,7 +98,7 @@ layui.use(['layer','util'], function(){
                     "url": "../../js/plugin/datatables/Chinese.lang"
                 },
             	"ajax": {
-            		"url" : domainName + "/api-u/users",
+            		"url" : domainName + "/userApi/users",
             		"type":"get",
             		"data":function(d){
             			d.username = $('#username').val();
@@ -197,7 +197,7 @@ function resetPassword(id){
 			yes : function(index, layero) {
 				$.ajax({
 					type : 'put',
-					url : domainName + '/api-u/users/'+id+'/password?newPassword='+$('#psw').val(),
+					url : domainName + '/userApi/users/'+id+'/password?newPassword='+$('#psw').val(),
 					success : function(data) {
 						layer.msg("成功", {shift: -1, time: 1000}, function(){
 							layer.close(index);

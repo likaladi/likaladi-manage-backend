@@ -93,7 +93,7 @@ layui.use(['layer','util'], function(){
                     "url": "../../js/plugin/datatables/Chinese.lang"
                 },
             	"ajax": {
-            		"url" : domainName + "/api-b/mails",
+            		"url" : domainName + "/managerApi/mails",
             		"type":"get",
             		"data":function(d){
                         d.subject = $('#subject').val();

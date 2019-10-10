@@ -40,13 +40,20 @@
 	}
 
 	var access_token = localStorage.getItem("access_token");
-	alert("access_token："+access_token);
 	if (access_token != null && access_token.trim().length != 0) {
 		$.ajax({
 			type : 'get',
-			url : domainName + '/api-u/users/current?access_token=' + access_token,
+			url : domainName + '/userApi/user/current',
+			beforeSend: function(request) {
+				request.setRequestHeader("X-Auth-Token", access_token);
+			},
 			success : function(data) {
-				location.href = 'index.html';
+				if(data.code == 200){
+					location.href = 'index.html';
+				}else{
+					localStorage.removeItem("access_token");
+				}
+
 			},
 			error : function(xhr, textStatus, errorThrown) {
 				if (xhr.status == 401) {
@@ -67,14 +74,20 @@
 		} else {
 			$.ajax({
 				type : 'post',
-				url : domainName + '/sys/login',
+				contentType:"application/json;charset=UTF-8",
+				url : domainName + '/userApi/user/login',
 				timeout : 5000, //超时时间设置，单位毫秒
-				data : $("#login-form").serialize(),
+				data : JSON.stringify({username:username, password:password}),
 				success : function(data) {
-				    //将access_token和refresh_token写入本地
-					localStorage.setItem("access_token", data.access_token);
-					localStorage.setItem("refresh_token", data.refresh_token);
-					location.href = 'index.html';
+					if(data.code == 200){
+						//将access_token和refresh_token写入本地
+						localStorage.setItem("access_token", data.data.token);
+						localStorage.setItem("refresh_token", data.data.expireTime);
+						location.href = 'index.html';
+					}else{
+						$("#info").html(data.msg);
+						$(obj).attr("disabled", false);
+					}
 				},
 				error : function(xhr, textStatus, errorThrown) {
 					$(obj).attr("disabled", false);

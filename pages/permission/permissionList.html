@@ -85,7 +85,7 @@ layui.use(['layer','util'], function(){
                     "url": "../../js/plugin/datatables/Chinese.lang"
                 },
             	"ajax": {
-            		"url" : domainName + "/api-u/permissions",
+            		"url" : domainName + "/userApi/permissions",
             		"type":"get",
             		"data":function(d){
         				d.name = $('#name').val();
@@ -155,7 +155,7 @@ function del(id){
     }, function() {
         $.ajax({
             type : 'delete',
-            url : domainName + "/api-u/permissions/"+id,
+            url : domainName + "/userApi/permissions/"+id,
             success : function(data) {
                 example.ajax.reload();
                 layer.msg("删除成功");

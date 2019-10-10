@@ -8,7 +8,7 @@ function getMenuTree() {
 
 	$.ajax({
 		type : 'get',
-		url : domainName + '/api-b/menus/tree',
+		url : domainName + '/managerApi/menus/tree',
 		contentType : "application/json; charset=utf-8",
 		async : false,
 		success : function(data) {
@@ -25,7 +25,7 @@ function getMenuTree() {
 function initMenuDatas(roleId){
 	$.ajax({
 		type : 'get',
-		url : domainName + '/api-b/menus?roleId=' + roleId,
+		url : domainName + '/managerApi/menus?roleId=' + roleId,
 		success : function(data) {
 			var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
 			var length = data.length;
@@ -89,7 +89,7 @@ function createNode(d) {
 function initParentMenuSelect(){
 	$.ajax({
         type : 'get',
-        url : domainName + '/api-b/menus/all',
+        url : domainName + '/managerApi/menus/all',
         async : false,
         success : function(data) {
             var select = $("#parentId");

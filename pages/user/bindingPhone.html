@@ -70,7 +70,7 @@
 	function initData(){
 		$.ajax({
 			type : 'get',
-			url : domainName + '/api-u/users/current',
+			url : domainName + '/userApi/users/current',
 			async : false,
 			success : function(data) {
 				$("#id").val(data.id);
@@ -154,7 +154,7 @@
 
 		$.ajax({
 			type : 'post',
-			url : domainName + '/api-u/users/binding-phone?key='+key+"&code="+code+"&phone="+phone,
+			url : domainName + '/userApi/users/binding-phone?key='+key+"&code="+code+"&phone="+phone,
 			contentType: "application/json; charset=utf-8",  
 			success : function(data) {
 				layer.msg("绑定成功", {shift: -1, time: 1000}, function(){

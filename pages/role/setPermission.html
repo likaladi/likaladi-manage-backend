@@ -36,7 +36,7 @@
 		//显示所有权限
     	$.ajax({
 			type : 'get',
-			url : domainName + '/api-u/permissions',
+			url : domainName + '/userApi/permissions',
 			async : false,
 			success : function(data) {
 				var ckb = $("#ckb");
@@ -56,7 +56,7 @@
     	var roleId = getUrlParam("roleId");
     	$.ajax({
 			type : 'get',
-			url : domainName + '/api-u/roles/' + roleId + '/permissions',
+			url : domainName + '/userApi/roles/' + roleId + '/permissions',
 			async : false,
 			success : function(data) {
 				if(data != null && data.length > 0){
@@ -93,7 +93,7 @@
 
 		$.ajax({
 			type : 'post',
-			url : domainName + '/api-u/roles/' + roleId + '/permissions',
+			url : domainName + '/userApi/roles/' + roleId + '/permissions',
 			contentType: "application/json; charset=utf-8",  
 			data : JSON.stringify(permissionIds),
 			success : function(data) {

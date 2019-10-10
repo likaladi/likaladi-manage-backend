@@ -53,7 +53,7 @@
 
 			$.ajax({
 				type : 'post',
-				url : domainName + '/api-b/menus/toRole?roleId=' + roleId,
+				url : domainName + '/managerApi/menus/toRole?roleId=' + roleId,
 				contentType: "application/json; charset=utf-8",  
 				data : JSON.stringify(permissionIds),
 				success : function(data) {

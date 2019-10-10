@@ -84,7 +84,7 @@
 
 			$.ajax({
 				type : 'post',
-				url : domainName + '/api-b/mails?send=' + send,
+				url : domainName + '/managerApi/mails?send=' + send,
 				contentType: "application/json; charset=utf-8",  
 				data : JSON.stringify(formdata),
 				success : function(data) {

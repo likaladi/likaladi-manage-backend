@@ -82,7 +82,7 @@ layui.use(['layer','util'], function(){
                     "url": "../../js/plugin/datatables/Chinese.lang"
                 },
             	"ajax": {
-            		"url" : domainName + "/api-u/roles",
+            		"url" : domainName + "/userApi/roles",
             		"type":"get",
             		"data":function(d){
         				d.name = $('#name').val();
@@ -163,7 +163,7 @@ function del(id){
     }, function() {
         $.ajax({
             type : 'delete',
-            url : domainName + "/api-u/roles/"+id,
+            url : domainName + "/userApi/roles/"+id,
             success : function(data) {
                 example.ajax.reload();
                 layer.msg("删除成功");

@@ -81,38 +81,42 @@ function initMenuList(){
 		url : domainName + '/managerApi/menus/all',
 		contentType: "application/json; charset=utf-8",  
 		async:false,
-		success : function(data) {
-			var length = data.length;
-			for(var i=0; i<length; i++){
-				var d = data[i];
-				var tr = "<tr data-tt-id='" + d['id'] + "' data-tt-parent-id='" + d['parentId'] + "'>";
-				var td1 = "<td>" + d['name'] +"</td>";
-				tr += td1;
-				var id = "<td>" + d['id'] +"</td>";
-				tr += id;
-				var url = "";
-				if(d['url'] != null){
-					url = d['url'];
-				}
-				var td2 = "<td>" + url +"</td>";
-				tr += td2;
-				
-				var sort = d['sort'];
-				if(sort == 0){
-					sort = "";
-				}
-				
-				var td4 = "<td>" + sort +"</td>";
-				tr += td4;
-				
-				var id = d['id'];
-				var href = "updateMenu.html?id=" + id;
-				var edit = buttonEdit(href, "back:menu:update", pers);
-				var del = buttonDel(id, "back:menu:delete", pers);
-                tr += "<td>"+edit + del+"</td>";
-				tr += "</tr>"
-				$("#dt-table").append(tr);
-			}
+		success : function(result) {
+		    var data = result.data;
+		    if(result.code == 200){
+                var length = data.length;
+                for(var i=0; i<length; i++){
+                    var d = data[i];
+                    var tr = "<tr data-tt-id='" + d['id'] + "' data-tt-parent-id='" + d['parentId'] + "'>";
+                    var td1 = "<td>" + d['name'] +"</td>";
+                    tr += td1;
+                    var id = "<td>" + d['id'] +"</td>";
+                    tr += id;
+                    var url = "";
+                    if(d['url'] != null){
+                        url = d['url'];
+                    }
+                    var td2 = "<td>" + url +"</td>";
+                    tr += td2;
+
+                    var sort = d['sort'];
+                    if(sort == 0){
+                        sort = "";
+                    }
+
+                    var td4 = "<td>" + sort +"</td>";
+                    tr += td4;
+
+                    var id = d['id'];
+                    var href = "updateMenu.html?id=" + id;
+                    var edit = buttonEdit(href, "back:menu:update", pers);
+                    var del = buttonDel(id, "back:menu:delete", pers);
+                    tr += "<td>"+edit + del+"</td>";
+                    tr += "</tr>"
+                    $("#dt-table").append(tr);
+                }
+            }
+
 		}
 	});
 }

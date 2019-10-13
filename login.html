@@ -44,9 +44,9 @@
 		$.ajax({
 			type : 'get',
 			url : domainName + '/userApi/user/current',
-			beforeSend: function(request) {
-				request.setRequestHeader("X-Auth-Token", access_token);
-			},
+			// beforeSend: function(request) {
+			// 	request.setRequestHeader("X-Auth-Token", access_token);
+			// },
 			success : function(data) {
 				if(data.code == 200){
 					location.href = 'index.html';

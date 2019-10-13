@@ -91,18 +91,21 @@ function initParentMenuSelect(){
         type : 'get',
         url : domainName + '/managerApi/menus/all',
         async : false,
-        success : function(data) {
-            var select = $("#parentId");
-            select.append("<option value='0'>root</option>");
-            for(var i=0; i<data.length; i++){
-                var d = data[i];
-              //  if(d['parentId'] == 0){
-                	var id = d['id'];
-                	var name = d['name'];
-                	
-                	select.append("<option value='"+ id +"'>" +name+"</option>");
-             //   }
-            }
+        success : function(result) {
+        	var data = result.data;
+        	if(result.code == 200){
+				var select = $("#parentId");
+				select.append("<option value='0'>root</option>");
+				for(var i=0; i<data.length; i++){
+					var d = data[i];
+					//  if(d['parentId'] == 0){
+					var id = d['id'];
+					var name = d['name'];
+
+					select.append("<option value='"+ id +"'>" +name+"</option>");
+					//   }
+				}
+			}
         }
     });
 }

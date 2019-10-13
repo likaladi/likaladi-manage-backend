@@ -84,19 +84,23 @@
 				type : 'get',
 				url : domainName + '/managerApi/menus/'+id,
 				async : false,
-				success : function(data) {
-					$("#id").val(data.id);
-					$("#parentId").val(data.parentId);
-					$("#name").val(data.name);
-					var css = data.css;
-					$("#css").val(css);
-					$("#url").val(data.url);
-					$("#sort").val(data.sort);
-					
-					if(css != ""){
-						$("#cssImg").addClass("fa");
-						$("#cssImg").addClass(css);
+				success : function(result) {
+					var data = result.data;
+					if(result.code == 200){
+						$("#id").val(data.id);
+						$("#parentId").val(data.parentId);
+						$("#name").val(data.name);
+						var css = data.css;
+						$("#css").val(css);
+						$("#url").val(data.url);
+						$("#sort").val(data.sort);
+
+						if(css != ""){
+							$("#cssImg").addClass("fa");
+							$("#cssImg").addClass(css);
+						}
 					}
+
 				}
 			});
 			
@@ -135,9 +139,15 @@
 				contentType: "application/json; charset=utf-8",  
 				data : JSON.stringify(formdata),
 				success : function(data) {
-					layer.msg("修改成功", {shift: -1, time: 1000}, function(){
-                        location.href = "menuList.html";
-                    });
+					if(data.code == 200){
+						layer.msg("修改成功", {shift: -1, time: 1000}, function(){
+							location.href = "menuList.html";
+						});
+					}else{
+						layer.msg(data.msg, {shift: -1, time: 1000}, function(){
+						});
+					}
+
 				}
 			});
 		}

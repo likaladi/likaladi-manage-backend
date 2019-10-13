@@ -3,9 +3,9 @@ function initMenu(){
 	 $.ajax({
 	     url: domainName + "/managerApi/menus/me",
 	     type:"get",
-		 beforeSend: function(request) {
-			 request.setRequestHeader("X-Auth-Token", localStorage.getItem("access_token"));
-		 },
+		 // beforeSend: function(request) {
+			//  request.setRequestHeader("X-Auth-Token", localStorage.getItem("access_token"));
+		 // },
 	     async:false,
 	     success:function(data){
 	     	if(data.code == 200){
@@ -102,15 +102,19 @@ function showLoginInfo(){
 }
 
 function logout(){
-	$.ajax({
-		type : 'get',
-		url : domainName + '/sys/logout',
-		success : function(data) {
-			localStorage.removeItem("access_token");
-			localStorage.removeItem("refresh_token");
-			location.href = loginPage;
-		}
-	});
+	// $.ajax({
+	// 	type : 'get',
+	// 	url : domainName + '/sys/logout',
+	// 	success : function(data) {
+	// 		localStorage.removeItem("access_token");
+	// 		localStorage.removeItem("refresh_token");
+	// 		location.href = loginPage;
+	// 	}
+	// });
+
+	localStorage.removeItem("access_token");
+	localStorage.removeItem("refresh_token");
+	location.href = loginPage;
 }
 
 var active;

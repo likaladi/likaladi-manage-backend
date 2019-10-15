@@ -72,7 +72,7 @@ layui.use(['layer','util'], function(){
     var util = layui.util;
     
     function init(){
-    	example = 
+    	example =
         	$('#dt-table').DataTable({
             	"searching": false,
             	"processing": false,
@@ -88,9 +88,16 @@ layui.use(['layer','util'], function(){
         				d.name = $('#name').val();
             		},
             		"dataSrc": function (json) {
-            			json.recordsTotal=json.total;
-            			json.recordsFiltered=json.total;
-            			return json.data;
+            		    //接口返回结果
+                        if(json.code == 200){
+                            json.recordsTotal=json.data.total;
+                            json.recordsFiltered=json.data.total;
+                            return json.data.items;
+                        }else{
+                            layer.msg(json.msg, {shift: -1, time: 1000}, function(){
+                            });
+                        }
+
             		},
         			"error":function(xhr, textStatus, errorThrown){
         				var msg = xhr.responseText;
@@ -134,19 +141,25 @@ layui.use(['layer','util'], function(){
                     		
                     		//分配权限
                             var setPermission = "";
-                            if($.inArray("back:role:permission:set", pers) >= 0){
-                            	var btn = $("<button class='layui-btn layui-btn-xs'><i class='layui-icon'>分配权限</i></button>");
-                            	btn.attr("onclick", 'setPermission(' +id+')');
-                            	setPermission = btn.prop("outerHTML");
-                            }
+                            // if($.inArray("back:role:permission:set", pers) >= 0){
+                            // 	var btn = $("<button class='layui-btn layui-btn-xs'><i class='layui-icon'>分配权限</i></button>");
+                            // 	btn.attr("onclick", 'setPermission(' +id+')');
+                            // 	setPermission = btn.prop("outerHTML");
+                            // }
+                            var btn = $("<button class='layui-btn layui-btn-xs'><i class='layui-icon'>分配权限</i></button>");
+                            btn.attr("onclick", 'setPermission(' +id+')');
+                            setPermission = btn.prop("outerHTML");
                             
                     		//分配菜单
                             var setMenu = "";
-                            if($.inArray("back:menu:set2role", pers) >= 0){
-                            	var btn = $("<button class='layui-btn layui-btn-xs'><i class='layui-icon'>分配菜单</i></button>");
-                            	btn.attr("onclick", 'setMenu(' +id+')');
-                            	setMenu = btn.prop("outerHTML");
-                            }
+                            // if($.inArray("back:menu:set2role", pers) >= 0){
+                            // 	var btn = $("<button class='layui-btn layui-btn-xs'><i class='layui-icon'>分配菜单</i></button>");
+                            // 	btn.attr("onclick", 'setMenu(' +id+')');
+                            // 	setMenu = btn.prop("outerHTML");
+                            // }
+                            var btn = $("<button class='layui-btn layui-btn-xs'><i class='layui-icon'>分配菜单</i></button>");
+                            btn.attr("onclick", 'setMenu(' +id+')');
+                            setMenu = btn.prop("outerHTML");
                             return edit + del + setPermission + setMenu;
                       	}
                     },

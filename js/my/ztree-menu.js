@@ -11,11 +11,17 @@ function getMenuTree() {
 		url : domainName + '/managerApi/menus/tree',
 		contentType : "application/json; charset=utf-8",
 		async : false,
-		success : function(data) {
-			$.each(data, function(i,item){
-				var node = createNode(item);
-				root.children.push(node);
-			});
+		success : function(result) {
+			var data  = result.data;
+			if(result.code == 200){
+				$.each(data, function(i,item){
+					var node = createNode(item);
+					root.children.push(node);
+				});
+			}else{
+				layer.msg(result.msg, {shift: -1, time: 1000}, function(){
+				});
+			}
 		}
 	});
 
@@ -25,19 +31,27 @@ function getMenuTree() {
 function initMenuDatas(roleId){
 	$.ajax({
 		type : 'get',
-		url : domainName + '/managerApi/menus?roleId=' + roleId,
-		success : function(data) {
-			var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
-			var length = data.length;
-			if(length > 0){//选中root
-				var node = treeObj.getNodeByParam("id", 0, null);
-				treeObj.checkNode(node, true, false);
+		url : domainName + '/managerApi/menus/byRole/' + roleId,
+		success : function(result) {
+			alert(JSON.stringify(result.data));
+			if(result.code == 200){
+				var data = result.data;
+				var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+				var length = data.length;
+				if(length > 0){//选中root
+					var node = treeObj.getNodeByParam("id", 0, null);
+					treeObj.checkNode(node, true, false);
+				}
+
+				for(var i=0; i<length; i++){//选中节点
+					var node = treeObj.getNodeByParam("id", data[i], null);
+					treeObj.checkNode(node, true, false);
+				}
+			}else{
+				layer.msg(result.msg, {shift: -1, time: 1000}, function(){
+				});
 			}
-			
-			for(var i=0; i<length; i++){//选中节点
-				var node = treeObj.getNodeByParam("id", data[i], null);
-				treeObj.checkNode(node, true, false);
-			}
+
 		}
 	});
 }
